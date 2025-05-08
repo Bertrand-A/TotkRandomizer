@@ -20,7 +20,12 @@ namespace TotkRandomizer
             chestsBox.SelectedIndex = 1;
             weaponsBox.SelectedIndex = 1;
             natureBox.SelectedIndex = 1;
+            batteryFloat.SelectedIndex = 0;
             paragliderPatternBox.SelectedIndex = 0;
+
+            // add for Event.cs
+            //heartsInt.Value = 3;
+            staminaFloat.SelectedIndex = 0;
         }
 
         private const int GREAT_SKY_ISLANDS_LIGHT_ORBS_COUNT = 4;
@@ -36,6 +41,8 @@ namespace TotkRandomizer
         private static Dictionary<string, uint> rstbModifiedTable = new Dictionary<string, uint>();
 
         private string randomizerPath;
+        public int GetHearts() { return (System.Int32) heartsInt.Value; }
+        public float GetStamina() { Console.WriteLine("#Form1.cs : Stamina :" + staminaFloat.SelectedItem!); return (System.Single) staminaFloat.SelectedItem!; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -435,7 +442,7 @@ namespace TotkRandomizer
                 if (eventName == "OpeningEvent")
                 {
                     File.Copy(eventFile, finalEventFlowPath, true);
-                    modifiedData = TotkRandomizer.Events.EditOpeningEvent(finalEventFlowPath);
+                    modifiedData = TotkRandomizer.Events.EditOpeningEvent(finalEventFlowPath, GetHearts(), GetStamina());
                     editedEvent = true;
                 }
                 else if (eventName == "DmF_SY_SmallDungeonGoal" && GetControlValue(chestsBox) == 1)
@@ -505,14 +512,6 @@ namespace TotkRandomizer
                     string64ArrayList[i].GetMap()["DefaultValue"].GetArray()[3] = "Obj_ReverseRecorder";
                     string64ArrayList[i].GetMap()["DefaultValue"].GetArray()[4] = "Obj_AutoBuilder";
                 }
-                // !!! It doesn't work for now
-                // Add Fierce Deity set
-                else if (saveHash == 0x754e8549)
-                {
-                    string64ArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = "Armor_225_Head";
-                    string64ArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = "Armor_225_Upper";
-                    string64ArrayList[i].GetMap()["DefaultValue"].GetArray()[2] = "Armor_225_Lower";
-                }
             }
 
             BymlArray boolArrayList = saveByaml.GetMap()["Data"].GetMap()["BoolArray"].GetArray();
@@ -525,16 +524,6 @@ namespace TotkRandomizer
                 {
                     boolArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = true;
                     boolArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = true;
-                    break;
-                }
-
-                // Pouch.Armor.IsValid
-                // i dunnow if it's necessary to make armor visible in pouch menu.. ? perhaps remove if it's useless
-                else if (saveHash == 0x6a7d536b)
-                {
-                    boolArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = true;
-                    boolArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = true;
-                    break;
                 }
             }
 
@@ -542,15 +531,17 @@ namespace TotkRandomizer
             for (int i = 0; i < enumList.Count; i++)
             {
                 uint saveHash = enumList[i].GetMap()["Hash"].GetUInt32();
-
+                // MainQuest
                 if (saveHash == 0x3ee80d28)
                 {
                     enumList[i].GetMap()["DefaultValue"] = (uint)0x311bb18f;
                 }
+                // SensorMode
                 else if (saveHash == 0x92d92e37 && GetControlValue(chestsBox) == 1)
                 {
                     enumList[i].GetMap()["DefaultValue"] = 0x9610d708;
                 }
+                // PlayerStatus.ParasailPattern
                 else if (saveHash == 0x01d063db && GetControlValue(paragliderPatternBox) > 0)
                 {
                     int selectedPattern = GetControlValue(paragliderPatternBox) == 0 ? RNG.Next(25) : GetControlValue(paragliderPatternBox) - 1;
@@ -575,53 +566,43 @@ namespace TotkRandomizer
             {
                 uint saveHash = intArrayList[i].GetMap()["Hash"].GetUInt32();
 
+                // Pouch.SpecialPower.ValidNum
                 if (saveHash == 0x5a12a611)
                 {
                     intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = 5;
-                    break;
                 }
 
-                // Add all pouches upgrade by default, i'll add checkbox into the rando FormView later
                 // Pouch.Weapon.ValidNum
                 else if (saveHash == 0xd7a3f6ba)
                 {
-                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = 20;
+                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = (System.Int32)pouchWInt.Value;
                     intArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = 8;
                 }
 
                 // Pouch.Bow.ValidNum
                 else if (saveHash == 0xc61785c2)
                 {
-                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = 14;
+                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = (System.Int32)pouchBInt.Value;
                     intArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = 5;
                 }
 
                 // Pouch.Shield.ValidNum
                 else if (saveHash == 0x05271e7d)
                 {
-                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = 20;
+                    intArrayList[i].GetMap()["DefaultValue"].GetArray()[0] = (System.Int32)pouchSInt.Value;
                     intArrayList[i].GetMap()["DefaultValue"].GetArray()[1] = 4;
                 }
             }
 
-            BymlArray intList = saveByaml.GetMap()["Data"].GetMap()["Int"].GetArray();
+           BymlArray intList = saveByaml.GetMap()["Data"].GetMap()["Int"].GetArray();
             for (int i = 0; i < intList.Count; i++)
             {
                 uint saveHash = intList[i].GetMap()["Hash"].GetUInt32();
 
-                // Hash for PlayerStatus.MaxLife = 16 (4 hearts)
-                // !!! It doesn't work for now
-                // TODO :Check type in GameDataList.Product.110.byml.zs
-                if (saveHash == 0xfbe01da1)
+                // PlayerStatus.CurrentRupee
+                if (saveHash == 0xa77921d7)
                 {
-                    intList[i].GetMap()["DefaultValue"] = 16;
-                }
-                // Hash for PlayerStatus.Life = 16 (4 hearts)
-                // !!! It doesn't work for now
-                // TODO : Check type in GameDataList.Product.110.byml.zs
-                else if (saveHash == 0x31ab5580)
-                {
-                    intList[i].GetMap()["DefaultValue"] = 16;
+                    intList[i].GetMap()["DefaultValue"] = (System.Int32)rupeesInt.Value;
                 }
             }
 
@@ -629,12 +610,10 @@ namespace TotkRandomizer
             for (int i = 0; i < floatList.Count; i++)
             {
                 uint saveHash = floatList[i].GetMap()["Hash"].GetUInt32();
-                // Hash for PlayerStatus.MaxStamina
-                // !!! It doesn't work for now
-                // Must force to Single to avoid Int32 into the Generated 'GameDataList.Product.110.byml.zs => Float => Dictionnary 36'.
-                if (saveHash == 0xf9212c74)
+                // PlayerStatus.MaxEnergy
+                if (saveHash == 0xafd01d68)
                 {
-                    floatList[i].GetMap()["DefaultValue"] = (Single)3000; 
+                    floatList[i].GetMap()["DefaultValue"] = (System.Single)batteryFloat.SelectedItem!;
                 }
             }
 

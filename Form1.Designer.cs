@@ -1,4 +1,7 @@
-﻿namespace TotkRandomizer
+﻿//using System.Reflection.Emit;
+//using System.Windows.Forms;
+
+namespace TotkRandomizer
 {
     partial class Form1
     {
@@ -38,6 +41,8 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tabPage2 = new TabPage();
+            tabPage3 = new TabPage();
+            tabPage4 = new TabPage();
             label7 = new Label();
             panel2 = new Panel();
             label11 = new Label();
@@ -52,9 +57,29 @@
             chestsBox = new ComboBox();
             label3 = new Label();
             enemiesBox = new ComboBox();
+            panel26 = new Panel();
+            label26 = new Label();
+            label26a = new Label();
+            panel27 = new Panel();
+            label27 = new Label();
+            heartsInt = new NumericUpDown();
+            label26b = new Label();
+            staminaFloat = new ComboBox();
+            label26c = new Label();
+            batteryFloat = new ComboBox();
+            label26d = new Label();
+            rupeesInt = new NumericUpDown();
+            label27a = new Label();
+            label27b = new Label();
+            label27c = new Label();
+            pouchWInt = new NumericUpDown();
+            pouchBInt = new NumericUpDown();
+            pouchSInt = new NumericUpDown();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
+            tabPage3.SuspendLayout();
+            tabPage4.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -116,6 +141,8 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -144,6 +171,10 @@
             tabPage2.Controls.Add(panel2);
             tabPage2.Controls.Add(label2);
             tabPage2.Controls.Add(panel1);
+            tabPage2.Controls.Add(label26);
+            tabPage2.Controls.Add(panel26);
+            tabPage2.Controls.Add(label27);
+            tabPage2.Controls.Add(panel27);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Margin = new Padding(10);
             tabPage2.Name = "tabPage2";
@@ -153,6 +184,28 @@
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(15);
+            tabPage3.Size = new Size(745, 362);
+            tabPage3.TabIndex = 0;
+            tabPage3.Text = "Inventory";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(15);
+            tabPage4.Size = new Size(745, 362);
+            tabPage4.TabIndex = 0;
+            tabPage4.Text = "Gamerules";
+            tabPage4.UseVisualStyleBackColor = true;
+
+
+            // 
             // label7
             // 
             label7.AutoSize = true;
@@ -161,6 +214,208 @@
             label7.Size = new Size(105, 15);
             label7.TabIndex = 22;
             label7.Text = "Cosmetic Settings:";
+
+            // New label status - Player Settings
+            //
+            // label26
+            //
+            label26.AutoSize = true;
+            label26.Location = new Point(28, 179);
+            label26.Name = "label26";
+            label26.Size = new Size(105, 15);
+            label26.TabIndex = 22;
+            label26.Text = "Player Settings:";
+
+            // 
+            // label26a
+            // 
+            label26a.AutoSize = true;
+            label26a.Location = new Point(0, 0);
+            label26a.Name = "label26a";
+            label26a.Size = new Size(104, 15);
+            label26a.TabIndex = 20;
+            label26a.Text = "Hearts [3-40]:";
+
+            //
+            // heartsInt => label26a => panel26
+            //
+            heartsInt.Minimum = 3;
+            heartsInt.Maximum = 40;
+            heartsInt.Value = 3;
+            heartsInt.Location = new Point(100, 13);
+            heartsInt.Width = 40;
+
+            // 
+            // label26b
+            // 
+            label26b.AutoSize = true;
+            label26b.Location = new Point(150, 0);
+            label26b.Name = "label26b";
+            label26b.Size = new Size(104, 15);
+            label26b.TabIndex = 20;
+            label26b.Text = "Stamina:";
+
+            //
+            // staminaFloat => label26b => panel26
+            //
+            staminaFloat.DropDownStyle = ComboBoxStyle.DropDownList;
+            staminaFloat.FormattingEnabled = true;
+            for (System.Single val = (System.Single) 1000f; val <= (System.Single) 3000f; val += (System.Single) 200f)
+            {
+                staminaFloat.Items.Add(val);
+            }
+            staminaFloat.SelectedItem = (System.Single) 1000f;
+            staminaFloat.Location = new Point(220, 13);
+            staminaFloat.Width = 60;
+
+            // 
+            // label26c
+            // 
+            label26c.AutoSize = true;
+            label26c.Location = new Point(280, 0);
+            label26c.Name = "label26c";
+            label26c.Size = new Size(104, 15);
+            label26c.TabIndex = 20;
+            label26c.Text = "Battery:";
+
+            //
+            // batteryFloat => label26b => panel26
+            //
+            batteryFloat.DropDownStyle = ComboBoxStyle.DropDownList;
+            batteryFloat.FormattingEnabled = true;
+            for (System.Single wal = (System.Single) 3000f; wal <= (System.Single) 48000f; wal += (System.Single) 1000f)
+            {
+                batteryFloat.Items.Add(wal);
+            }
+            batteryFloat.SelectedItem = (System.Single) 3000f;
+            batteryFloat.Location = new Point(345, 13);
+            batteryFloat.Width = 80;
+
+            // 
+            // label26d
+            // 
+            label26d.AutoSize = true;
+            label26d.Location = new Point(430, 0);
+            label26d.Name = "label26d";
+            label26d.Size = new Size(150, 15);
+            label26d.TabIndex = 20;
+            label26d.Text = "Rupees [0-999999]:";
+
+            //
+            // rupeesInt => label26d => panel26
+            //
+            rupeesInt.Minimum = 0;
+            rupeesInt.Maximum = 999999;
+            rupeesInt.Value = 0;
+            rupeesInt.Location = new Point(560, 13);
+            rupeesInt.Width = 70;
+
+            // New panel Player Settings
+            // 
+            // panel26
+            // 
+            panel26.BorderStyle = BorderStyle.FixedSingle;
+            panel26.Controls.Add(label26a);
+            panel26.Controls.Add(heartsInt);
+            panel26.Controls.Add(label26b);
+            panel26.Controls.Add(staminaFloat);
+            panel26.Controls.Add(label26c);
+            panel26.Controls.Add(batteryFloat);
+            panel26.Controls.Add(label26d);
+            panel26.Controls.Add(rupeesInt);
+            panel26.Location = new Point(18, 187);
+            panel26.Margin = new Padding(10);
+            panel26.Name = "panel26";
+            panel26.Padding = new Padding(15);
+            panel26.Size = new Size(709, 49);
+            panel26.TabIndex = 23;
+
+            // New panel Pouch Settings
+            // 
+            // panel27
+            // 
+            panel27.BorderStyle = BorderStyle.FixedSingle;
+            panel27.Controls.Add(label27a);
+            panel27.Controls.Add(pouchWInt);
+            panel27.Controls.Add(label27b);
+            panel27.Controls.Add(pouchBInt);
+            panel27.Controls.Add(label27c);
+            panel27.Controls.Add(pouchSInt);
+            panel27.Location = new Point(18, 252);
+            panel27.Margin = new Padding(10);
+            panel27.Name = "panel27";
+            panel27.Padding = new Padding(15);
+            panel27.Size = new Size(709, 49);
+            panel27.TabIndex = 23;
+
+            // New label status - Pouch Settings
+            //
+            // label27
+            //
+            label27.AutoSize = true;
+            label27.Location = new Point(28, 244);
+            label27.Name = "label27";
+            label27.Size = new Size(105, 15);
+            label27.TabIndex = 22;
+            label27.Text = "Pouch Settings:";
+
+            // 
+            // label27a
+            // 
+            label27a.AutoSize = true;
+            label27a.Location = new Point(15, 15);
+            label27a.Name = "label27a";
+            label27a.Size = new Size(140, 15);
+            label27a.TabIndex = 20;
+            label27a.Text = "Weapon [8-20]:";
+
+            // 
+            // label27b
+            // 
+            label27b.AutoSize = true;
+            label27b.Location = new Point(170, 15);
+            label27b.Name = "label27b";
+            label27b.Size = new Size(130, 15);
+            label27b.TabIndex = 20;
+            label27b.Text = "Bow [5-14]:";
+
+            // 
+            // label27c
+            // 
+            label27c.AutoSize = true;
+            label27c.Location = new Point(310, 15);
+            label27c.Name = "label27c";
+            label27c.Size = new Size(130, 15);
+            label27c.TabIndex = 20;
+            label27c.Text = "Shield [4-20]:";
+
+            // 
+            // pouchWInt
+            // 
+            pouchWInt.Minimum = 8;
+            pouchWInt.Maximum = 20;
+            pouchWInt.Value = 8;
+            pouchWInt.Location = new Point(105, 13);
+            pouchWInt.Width = 40;
+
+            // 
+            // pouchBInt
+            // 
+            pouchBInt.Minimum = 5;
+            pouchBInt.Maximum = 14;
+            pouchBInt.Value = 5;
+            pouchBInt.Location = new Point(240, 13);
+            pouchBInt.Width = 40;
+
+            // 
+            // pouchSInt
+            // 
+            pouchSInt.Minimum = 4;
+            pouchSInt.Maximum = 20;
+            pouchSInt.Value = 4;
+            pouchSInt.Location = new Point(390, 13);
+            pouchSInt.Width = 40;
+
             // 
             // panel2
             // 
@@ -313,6 +568,10 @@
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel1.ResumeLayout(false);
@@ -337,6 +596,8 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
         private Label label2;
         private Panel panel1;
         private Label label3;
@@ -350,6 +611,27 @@
         private Label label7;
         private Panel panel2;
         private Label label11;
+
+        private Label label26;
+        private Label label26a;
+        private Panel panel26;
+        private Label label27;
+        private Panel panel27;
+        private Label label26b;
+        private Label label26c;
+        private Label label26d;
+
+        private Label label27a;
+        private Label label27b;
+        private Label label27c;
+
+        private NumericUpDown pouchWInt;
+        private NumericUpDown pouchBInt;
+        private NumericUpDown pouchSInt;
+        private ComboBox staminaFloat;
+        private ComboBox batteryFloat;
+        private NumericUpDown heartsInt;
+        private NumericUpDown rupeesInt;
         private ComboBox paragliderPatternBox;
     }
 }

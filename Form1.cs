@@ -42,7 +42,7 @@ namespace TotkRandomizer
 
         private string randomizerPath;
         public int GetHearts() { return (System.Int32) heartsInt.Value; }
-        public float GetStamina() { Console.WriteLine("#Form1.cs : Stamina :" + staminaFloat.SelectedItem!); return (System.Single) staminaFloat.SelectedItem!; }
+        public float GetStamina() { return (System.Single) staminaFloat.SelectedItem!; }
 
         private void button1_Click(object sender, EventArgs e)
         {

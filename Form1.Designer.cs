@@ -75,6 +75,12 @@ namespace TotkRandomizer
             pouchWInt = new NumericUpDown();
             pouchBInt = new NumericUpDown();
             pouchSInt = new NumericUpDown();
+
+            label3_1 = new Label();
+
+            label4_1 = new Label();
+            label4_2 = new Label();
+            //speedCoeff = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -186,6 +192,7 @@ namespace TotkRandomizer
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label3_1);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(15);
@@ -196,6 +203,9 @@ namespace TotkRandomizer
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(label4_1);
+            tabPage4.Controls.Add(label4_2);
+            tabPage4.Controls.Add(speedCoeff);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(15);
@@ -204,6 +214,48 @@ namespace TotkRandomizer
             tabPage4.Text = "Gamerules";
             tabPage4.UseVisualStyleBackColor = true;
 
+            // 
+            // label3_2 : WIP
+            // 
+            label3_1.AutoSize = true;
+            label3_1.Location = new Point(30, 40);
+            label3_1.Name = "label3_1";
+            label3_1.Size = new Size(250, 15);
+            label3_1.TabIndex = 22;
+            label3_1.Text = "WIP";
+            label3_1.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+
+            // 
+            // label4_1 : WARNING FOR GAMERULE
+            // 
+            label4_1.AutoSize = true;
+            label4_1.Location = new Point(30, 10);
+            label4_1.Name = "label4_1";
+            label4_1.Size = new Size(250, 15);
+            label4_1.TabIndex = 22;
+            label4_1.Text = "⚠️ Be careful with these custom settings. Let all on Default unless you know what you are doing ⚠️";
+            label4_1.ForeColor = Color.DarkRed;
+
+            // 
+            // label4_2w : WIP
+            // 
+            label4_2.AutoSize = true;
+            label4_2.Location = new Point(30, 40);
+            label4_2.Name = "label4_2";
+            label4_2.Size = new Size(250, 15);
+            label4_2.TabIndex = 22;
+            label4_2.Text = "WIP";
+            label4_2.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+
+            //
+            // speedCoeff => label4_2 =>
+            //
+            /*speedCoeff.DropDownStyle = ComboBoxStyle.DropDownList;
+            speedCoeff.FormattingEnabled = true;
+            speedCoeff.Items.AddRange(new object[] { "Default (1.0)", "+10% (1.1)", "+20% (1.2)", "+30% (1.3)" });
+            speedCoeff.SelectedItem = (System.String) "Default (1.0)";
+            speedCoeff.Location = new Point(140, 37);
+            speedCoeff.Width = 100;*/
 
             // 
             // label7
@@ -625,9 +677,15 @@ namespace TotkRandomizer
         private Label label27b;
         private Label label27c;
 
+        private Label label3_1;
+
+        private Label label4_1;
+        private Label label4_2;
+
         private NumericUpDown pouchWInt;
         private NumericUpDown pouchBInt;
         private NumericUpDown pouchSInt;
+        private ComboBox speedCoeff;
         private ComboBox staminaFloat;
         private ComboBox batteryFloat;
         private NumericUpDown heartsInt;

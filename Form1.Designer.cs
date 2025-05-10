@@ -1,5 +1,6 @@
 ﻿//using System.Reflection.Emit;
 //using System.Windows.Forms;
+//using BfevLibrary.Core;
 
 namespace TotkRandomizer
 {
@@ -72,15 +73,19 @@ namespace TotkRandomizer
             label27a = new Label();
             label27b = new Label();
             label27c = new Label();
+            weaponOnStart = new ComboBox();
             pouchWInt = new NumericUpDown();
             pouchBInt = new NumericUpDown();
             pouchSInt = new NumericUpDown();
 
             label3_1 = new Label();
+            label3_1p = new Label();
+            label3_2 = new Label();
+            fairiesInt = new NumericUpDown();
 
             label4_1 = new Label();
             label4_2 = new Label();
-            //speedCoeff = new ComboBox();
+            speedCoeff = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -88,6 +93,7 @@ namespace TotkRandomizer
             tabPage4.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
+            ToolTip gameruleTT1 = new ToolTip();
             SuspendLayout();
             // 
             // button1
@@ -193,6 +199,10 @@ namespace TotkRandomizer
             // tabPage3
             // 
             tabPage3.Controls.Add(label3_1);
+            tabPage3.Controls.Add(weaponOnStart);
+            tabPage3.Controls.Add(label3_1p);
+            tabPage3.Controls.Add(label3_2);
+            tabPage3.Controls.Add(fairiesInt);
             tabPage3.Location = new Point(4, 24);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(15);
@@ -215,15 +225,52 @@ namespace TotkRandomizer
             tabPage4.UseVisualStyleBackColor = true;
 
             // 
-            // label3_2 : WIP
+            // label3_1 : WIP
             // 
             label3_1.AutoSize = true;
             label3_1.Location = new Point(30, 40);
             label3_1.Name = "label3_1";
             label3_1.Size = new Size(250, 15);
             label3_1.TabIndex = 22;
-            label3_1.Text = "WIP";
-            label3_1.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+            label3_1.Text = "Select Weapon on start: ";
+            //label3_1.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+
+            weaponOnStart.DropDownStyle = ComboBoxStyle.DropDownList;
+            //weaponOnStart.DataSource = SelectWeaponList;
+            weaponOnStart.FormattingEnabled = true;
+            weaponOnStart.DisplayMember = "Value";
+            weaponOnStart.ValueMember = "Key";
+            weaponOnStart.SelectedValue = "Random";
+            weaponOnStart.Location = new Point(175, 37);
+            weaponOnStart.Width = 180;
+
+            // 
+            // label3_1p : WIP
+            // 
+            label3_1p.AutoSize = true;
+            label3_1p.Location = new Point(365, 35);
+            label3_1p.Name = "label3_1p";
+            label3_1p.Size = new Size(450, 50);
+            label3_1p.TabIndex = 22;
+            label3_1p.Text = "NB : If you can't directly get the weapon (spear and bigsword),\n simply use Ultrahand to move it and allow pickup";
+            //label3_1.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+
+
+            label3_2.AutoSize = true;
+            label3_2.Location = new Point(30, 80);
+            label3_2.Name = "label3_2";
+            label3_2.Size = new Size(150, 15);
+            label3_2.TabIndex = 22;
+            label3_2.Text = "Number of fairies: ";
+
+            //
+            // fairiesInt => label3_2
+            //
+            fairiesInt.Minimum = 0;
+            fairiesInt.Maximum = 999;
+            fairiesInt.Value = 0;
+            fairiesInt.Location = new Point(140, 77);
+            fairiesInt.Width = 50;
 
             // 
             // label4_1 : WARNING FOR GAMERULE
@@ -244,18 +291,19 @@ namespace TotkRandomizer
             label4_2.Name = "label4_2";
             label4_2.Size = new Size(250, 15);
             label4_2.TabIndex = 22;
-            label4_2.Text = "WIP";
-            label4_2.Font = new Font("Microsoft Sans Serif", 12, FontStyle.Regular);
+            label4_2.Text = "Speed coefficient:";
+            gameruleTT1.SetToolTip(label4_2, "Change the 'AllSpeed' parameter to Link : Walk, Run, Paraglide");
+            //label4_2.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
 
             //
             // speedCoeff => label4_2 =>
             //
-            /*speedCoeff.DropDownStyle = ComboBoxStyle.DropDownList;
+            speedCoeff.DropDownStyle = ComboBoxStyle.DropDownList;
             speedCoeff.FormattingEnabled = true;
             speedCoeff.Items.AddRange(new object[] { "Default (1.0)", "+10% (1.1)", "+20% (1.2)", "+30% (1.3)" });
             speedCoeff.SelectedItem = (System.String) "Default (1.0)";
             speedCoeff.Location = new Point(140, 37);
-            speedCoeff.Width = 100;*/
+            speedCoeff.Width = 100;
 
             // 
             // label7
@@ -678,6 +726,8 @@ namespace TotkRandomizer
         private Label label27c;
 
         private Label label3_1;
+        private Label label3_1p;
+        private Label label3_2;
 
         private Label label4_1;
         private Label label4_2;
@@ -688,6 +738,8 @@ namespace TotkRandomizer
         private ComboBox speedCoeff;
         private ComboBox staminaFloat;
         private ComboBox batteryFloat;
+        private ComboBox weaponOnStart;
+        private NumericUpDown fairiesInt;
         private NumericUpDown heartsInt;
         private NumericUpDown rupeesInt;
         private ComboBox paragliderPatternBox;

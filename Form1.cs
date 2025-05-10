@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Media;
 using TotkRSTB;
 using static TotkRandomizer.ActorList;
+using System.Collections;
+using System.Diagnostics.Eventing.Reader;
 
 namespace TotkRandomizer
 {
@@ -16,6 +18,13 @@ namespace TotkRandomizer
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             InitializeComponent();
 
+            // Add Weapon Selection as List
+            List<DictionaryEntry> SelectWeaponList = new List<DictionaryEntry>();
+            foreach (DictionaryEntry entry in ActorList.WeaponManager.WeaponDictable)
+            {
+                SelectWeaponList.Add(entry);
+            }
+            weaponOnStart.DataSource = SelectWeaponList;
             enemiesBox.SelectedIndex = 1;
             chestsBox.SelectedIndex = 1;
             weaponsBox.SelectedIndex = 1;
@@ -41,8 +50,9 @@ namespace TotkRandomizer
         private static Dictionary<string, uint> rstbModifiedTable = new Dictionary<string, uint>();
 
         private string randomizerPath;
-        public int GetHearts() { return (System.Int32) heartsInt.Value; }
-        public float GetStamina() { return (System.Single) staminaFloat.SelectedItem!; }
+
+        public int GetHearts() { return (System.Int32)heartsInt.Value; }
+        public float GetStamina() { return (System.Single)staminaFloat.SelectedItem!; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -298,51 +308,60 @@ namespace TotkRandomizer
 
         private Byml ReplaceFloorWeapon(Byml actor)
         {
-            // Replace Floor Weapon
-            string gyamlValue = actor.GetMap()["Gyaml"].GetString();
+            var finalWeaponSelected = weaponOnStart.SelectedValue?.ToString();
+            if (finalWeaponSelected == null) {finalWeaponSelected = "Random";}
 
-            if (gyamlValue.StartsWith("Weapon_"))
-            {
-                if (gyamlValue.Contains("_Shield_"))
+                string gyamlValue = actor.GetMap()["Gyaml"].GetString();
+
+                if (gyamlValue.StartsWith("Weapon_"))
                 {
-                    ShieldList.Shuffle();
-                    actor.GetMap()["Gyaml"] = ShieldList[0];
-                }
-                else if (gyamlValue.Contains("_Bow_"))
-                {
-                    BowList.Shuffle();
-                    actor.GetMap()["Gyaml"] = BowList[0];
-                }
+                    if (gyamlValue.Contains("_Shield_"))
+                    {
+                        ShieldList.Shuffle();
+                        actor.GetMap()["Gyaml"] = ShieldList[0];
+                    }
+                    else if (gyamlValue.Contains("_Bow_"))
+                    {
+                        BowList.Shuffle();
+                        actor.GetMap()["Gyaml"] = BowList[0];
+                    }
                 else if (gyamlValue.Equals("Weapon_Sword_071_Broken"))
                 {
-                    SharpWeaponList.Shuffle();
-                    actor.GetMap()["Gyaml"] = SharpWeaponList[0];
-                    return actor;
+                    if (finalWeaponSelected == "Random")
+                    {
+                        SharpWeaponList.Shuffle();
+                        actor.GetMap()["Gyaml"] = SharpWeaponList[0];
+                        return actor;
+                    }
+                    else {
+                        actor.GetMap()["Gyaml"] = finalWeaponSelected;
+                        return actor;
+                    }
                 }
+
                 else
                 {
                     WeaponList.Shuffle();
                     actor.GetMap()["Gyaml"] = WeaponList[0];
                 }
 
-                if (actor.GetMap().ContainsKey("Dynamic"))
-                {
-                    BymlMap dynamicArray = actor.GetMap()["Dynamic"].GetMap();
-
-                    if (!gyamlValue.Contains("_Bow_"))
+                    if (actor.GetMap().ContainsKey("Dynamic"))
                     {
-                        AttachmentList.Shuffle();
+                        BymlMap dynamicArray = actor.GetMap()["Dynamic"].GetMap();
 
-                        if (!dynamicArray.ContainsKey("Equipment_Attachment"))
+                        if (!gyamlValue.Contains("_Bow_"))
                         {
-                            actor.GetMap()["Dynamic"].GetMap().Add("Equipment_Attachment", AttachmentList[0]);
-                        }
+                            AttachmentList.Shuffle();
 
-                        actor.GetMap()["Dynamic"].GetMap()["Equipment_Attachment"] = AttachmentList[0];
+                            if (!dynamicArray.ContainsKey("Equipment_Attachment"))
+                            {
+                                actor.GetMap()["Dynamic"].GetMap().Add("Equipment_Attachment", AttachmentList[0]);
+                            }
+
+                            actor.GetMap()["Dynamic"].GetMap()["Equipment_Attachment"] = AttachmentList[0];
+                        }
                     }
                 }
-            }
-
             return actor;
         }
 
@@ -415,7 +434,9 @@ namespace TotkRandomizer
 
             string rstbFile = Path.Combine(randomizerPath, "System", "Resource");
             string mapfilesPath = Path.Combine(randomizerPath, "Banc");
+            string playerPackfile = Path.Combine(randomizerPath, "Pack", "Actor");
 
+            //playerPackfile = Directory.GetFiles(playerPackfile, "Player.pack.zs")[0];
             rstbFile = Directory.GetFiles(rstbFile, "*.rsizetable.zs")[0];
 
             string[] allFiles = Directory.GetFiles(mapfilesPath, "*.bcett.byml.zs", SearchOption.AllDirectories);

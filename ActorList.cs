@@ -1,4 +1,7 @@
-﻿namespace TotkRandomizer
+﻿using System.Collections;
+using System.Collections.Specialized;
+
+namespace TotkRandomizer
 {
     public static class ActorList
     {
@@ -1778,6 +1781,129 @@
             "Enemy_Keese_Ice_AllDay",
             "Enemy_Keese_Swarm_AllDay",
         };
+        public static class WeaponManager
+        {
+            public static OrderedDictionary WeaponDictable = new OrderedDictionary();
+            static WeaponManager()
+            {
+                WeaponDictable.Add("Random", "Random (Default)");
+                WeaponDictable.Add("Weapon_Sword_001", "Traveler's Sword ✨");
+                WeaponDictable.Add("Weapon_Sword_002", "Soldier's Broadsword ✨");
+                WeaponDictable.Add("Weapon_Sword_003", "Knight's Broadsword ✨");
+                WeaponDictable.Add("Weapon_Sword_019", "Bokoblin Arm");
+                WeaponDictable.Add("Weapon_Sword_020","Lizalfos Arm");
+                WeaponDictable.Add("Weapon_Sword_021","Rusty Broadsword");
+                WeaponDictable.Add("Weapon_Sword_022","Soup Ladle");
+                WeaponDictable.Add("Weapon_Sword_024","Royal Broadsword ✨");
+                WeaponDictable.Add("Weapon_Sword_025","Forest Dweller's Sword ✨");
+                WeaponDictable.Add("Weapon_Sword_027","Zora Sword ✨");
+                WeaponDictable.Add("Weapon_Sword_029","Gerudo Scimitar ✨");
+                WeaponDictable.Add("Weapon_Sword_031","Feathered Edge ✨");
+                WeaponDictable.Add("Weapon_Sword_041","Eightfold Blade ✨");
+                WeaponDictable.Add("Weapon_Sword_043","Torch");
+                WeaponDictable.Add("Weapon_Sword_044","Tree Branch");
+                WeaponDictable.Add("Weapon_Sword_047","Royal Guard's Sword ✨");
+                WeaponDictable.Add("Weapon_Sword_051","Boomerang ✨");
+                WeaponDictable.Add("Weapon_Sword_052","Scimitar of the Seven");
+                WeaponDictable.Add("Weapon_Sword_057","White Sword of the Sky");
+                WeaponDictable.Add("Weapon_Sword_058","Sword of the Hero");
+                WeaponDictable.Add("Weapon_Sword_059","Sea-Breeze Boomerang");
+                WeaponDictable.Add("Weapon_Sword_101","Zonaite Sword");
+                WeaponDictable.Add("Weapon_Sword_103","Wooden Stick");
+                WeaponDictable.Add("Weapon_Sword_105","Boomerang");
+                WeaponDictable.Add("Weapon_Sword_106","Traveler's Sword");
+                WeaponDictable.Add("Weapon_Sword_107","Lizal Boomerang");
+                WeaponDictable.Add("Weapon_Sword_108","Sturdy Wooden Stick");
+                WeaponDictable.Add("Weapon_Sword_109","Gnarled Wooden Stick");
+                WeaponDictable.Add("Weapon_Sword_112","Soldier's Broadsword");
+                WeaponDictable.Add("Weapon_Sword_113","Knight's Broadsword");
+                WeaponDictable.Add("Weapon_Sword_114","Eightfold Blade");
+                WeaponDictable.Add("Weapon_Sword_124","Royal Broadsword");
+                WeaponDictable.Add("Weapon_Sword_125","Forest Dweller's Sword");
+                WeaponDictable.Add("Weapon_Sword_127","Zora Sword");
+                WeaponDictable.Add("Weapon_Sword_129","Gerudo Scimitar");
+                WeaponDictable.Add("Weapon_Sword_131","Feathered Edge");
+                WeaponDictable.Add("Weapon_Sword_147","Royal Guard's Sword");
+                WeaponDictable.Add("Weapon_Sword_161","Magic Rod");
+                WeaponDictable.Add("Weapon_Sword_163","Strong Zonaite Sword");
+                WeaponDictable.Add("Weapon_Sword_164","Mighty Zonaite Sword");
+                WeaponDictable.Add("Weapon_Sword_166","Gloom Sword");
+                WeaponDictable.Add("Weapon_Sword_167","Tree Branch (Sky)");
+                WeaponDictable.Add("Weapon_Sword_168","Wooden Stick (Sky)");
+                WeaponDictable.Add("Weapon_Spear_001","Traveler's Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_002","Soldier's Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_003","Knight's Halberd ✨");
+                WeaponDictable.Add("Weapon_Spear_021","Rusty Halberd");
+                WeaponDictable.Add("Weapon_Spear_022","Farmer's Pitchfork");
+                WeaponDictable.Add("Weapon_Spear_024","Royal Halberd ✨");
+                WeaponDictable.Add("Weapon_Spear_025","Forest Dweller's Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_027","Zora Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_029","Gerudo Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_030","Throwing Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_032","Feathered Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_036","Wooden Mop");
+                WeaponDictable.Add("Weapon_Spear_038","Fishing Harpoon");
+                WeaponDictable.Add("Weapon_Spear_047","Royal Guard's Spear ✨");
+                WeaponDictable.Add("Weapon_Spear_050","Lightscale Trident");
+                WeaponDictable.Add("Weapon_Spear_101","Zonaite Spear");
+                WeaponDictable.Add("Weapon_Spear_103","Long Stick");
+                WeaponDictable.Add("Weapon_Spear_106","Traveler's Spear");
+                WeaponDictable.Add("Weapon_Spear_108","Sturdy Long Stick");
+                WeaponDictable.Add("Weapon_Spear_109","Gnarled Long Stick");
+                WeaponDictable.Add("Weapon_Spear_112","Soldier's Spear");
+                WeaponDictable.Add("Weapon_Spear_113","Knight's Halberd");
+                WeaponDictable.Add("Weapon_Spear_124","Royal Halberd");
+                WeaponDictable.Add("Weapon_Spear_125","Forest Dweller's Spear");
+                WeaponDictable.Add("Weapon_Spear_127","Zora Spear");
+                WeaponDictable.Add("Weapon_Spear_129","Gerudo Spear");
+                WeaponDictable.Add("Weapon_Spear_132","Feathered Spear");
+                WeaponDictable.Add("Weapon_Spear_147","Royal Guard's Spear");
+                WeaponDictable.Add("Weapon_Spear_161","Magic Staff");
+                WeaponDictable.Add("Weapon_Spear_163","Strong Zonaite Spear");
+                WeaponDictable.Add("Weapon_Spear_164","Mighty Zonaite Spear");
+                WeaponDictable.Add("Weapon_Spear_166","Gloom Spear");
+                WeaponDictable.Add("Weapon_Spear_168","Long Stick (Sky)");
+                WeaponDictable.Add("Weapon_Spear_173","Throwing Spear");
+                WeaponDictable.Add("Weapon_Lsword_001","Traveler's Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_002","Soldier's Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_003","Knight's Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_019","Moblin Arm");
+                WeaponDictable.Add("Weapon_Lsword_020","Rusty Claymore");
+                WeaponDictable.Add("Weapon_Lsword_024","Royal Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_027","Zora Longsword ✨");
+                WeaponDictable.Add("Weapon_Lsword_029","Gerudo Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_036","Cobble Crusher ✨");
+                WeaponDictable.Add("Weapon_Lsword_038","Boat Oar");
+                WeaponDictable.Add("Weapon_Lsword_041","Eightfold Longblade ✨");
+                WeaponDictable.Add("Weapon_Lsword_045","Farming Hoe");
+                WeaponDictable.Add("Weapon_Lsword_047","Royal Guard's Claymore ✨");
+                WeaponDictable.Add("Weapon_Lsword_051","Giant Boomerang ✨");
+                WeaponDictable.Add("Weapon_Lsword_054","Boulder Breaker");
+                WeaponDictable.Add("Weapon_Lsword_057","Dusk Claymore");
+                WeaponDictable.Add("Weapon_Lsword_059","Biggoron's Sword");
+                WeaponDictable.Add("Weapon_Lsword_060","Fierce Deity Sword");
+                WeaponDictable.Add("Weapon_Lsword_101","Zonaite Longsword");
+                WeaponDictable.Add("Weapon_Lsword_103","Thick Stick");
+                WeaponDictable.Add("Weapon_Lsword_106","Traveler's Claymore");
+                WeaponDictable.Add("Weapon_Lsword_108","Sturdy Thick Stick");
+                WeaponDictable.Add("Weapon_Lsword_109","Gnarled Thick Stick");
+                WeaponDictable.Add("Weapon_Lsword_112","Soldier's Claymore");
+                WeaponDictable.Add("Weapon_Lsword_113","Knight's Claymore");
+                WeaponDictable.Add("Weapon_Lsword_114","Eightfold Longblade");
+                WeaponDictable.Add("Weapon_Lsword_124","Royal Claymore");
+                WeaponDictable.Add("Weapon_Lsword_127","Zora Longsword");
+                WeaponDictable.Add("Weapon_Lsword_129","Gerudo Claymore");
+                WeaponDictable.Add("Weapon_Lsword_136","Cobble Crusher");
+                WeaponDictable.Add("Weapon_Lsword_147","Royal Guard's Claymore");
+                WeaponDictable.Add("Weapon_Lsword_161","Magic Scepter");
+                WeaponDictable.Add("Weapon_Lsword_163","Strong Zonaite Longsword");
+                WeaponDictable.Add("Weapon_Lsword_164","Mighty Zonaite Longsword");
+                WeaponDictable.Add("Weapon_Lsword_166","Gloom Club");
+                WeaponDictable.Add("Weapon_Lsword_168","Thick Stick");
+                WeaponDictable.Add("Weapon_Lsword_174","Giant Boomerang");
+            }
+        }
+
 
         public static List<List<string>> BasicEnemyList = new List<List<string>>() { ZombieReplaceWithList, TreeList, LittleFroxList, LikeLikeReplaceWithList, BokoblinReplaceWithList, LizalfosReplaceWithList, MoblinReplaceWithList, HoriblinReplaceWithList, PebblitList, ZonaiReplaceWithList, ChuchuReplaceWithList };
         public static List<List<string>> BossEnemyList = new List<List<string>>() { BokoblinBossReplaceWithList, GleeokList, HinoxReplaceWithList, TalusReplaceWithList, LynelList, FroxList, FluxReplaceWithList };

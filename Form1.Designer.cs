@@ -85,6 +85,12 @@ namespace TotkRandomizer
 
             label4_1 = new Label();
             label4_2 = new Label();
+            label4_3 = new Label();
+            label4_3a = new Label();
+            checkbox4_3 = new CheckBox();
+            label4_4 = new Label();
+            label4_4a = new Label();
+            checkbox4_4 = new CheckBox();
             speedCoeff = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -216,6 +222,12 @@ namespace TotkRandomizer
             tabPage4.Controls.Add(label4_1);
             tabPage4.Controls.Add(label4_2);
             tabPage4.Controls.Add(speedCoeff);
+            tabPage4.Controls.Add(label4_3);
+            tabPage4.Controls.Add(checkbox4_3);
+            tabPage4.Controls.Add(label4_3a);
+            tabPage4.Controls.Add(label4_4);
+            tabPage4.Controls.Add(checkbox4_4);
+            tabPage4.Controls.Add(label4_4a);
             tabPage4.Location = new Point(4, 24);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(15);
@@ -291,7 +303,7 @@ namespace TotkRandomizer
             label4_2.Name = "label4_2";
             label4_2.Size = new Size(250, 15);
             label4_2.TabIndex = 22;
-            label4_2.Text = "Speed coefficient:";
+            label4_2.Text = "Speed coefficient (DISABLED, WIP):";
             gameruleTT1.SetToolTip(label4_2, "Change the 'AllSpeed' parameter to Link : Walk, Run, Paraglide");
             //label4_2.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
 
@@ -302,8 +314,74 @@ namespace TotkRandomizer
             speedCoeff.FormattingEnabled = true;
             speedCoeff.Items.AddRange(new object[] { "Default (1.0)", "+10% (1.1)", "+20% (1.2)", "+30% (1.3)" });
             speedCoeff.SelectedItem = (System.String) "Default (1.0)";
-            speedCoeff.Location = new Point(140, 37);
+            speedCoeff.Location = new Point(250, 38);
             speedCoeff.Width = 100;
+
+            // 
+            // label4_3 : LightOrb removal
+            // 
+            label4_3.AutoSize = true;
+            label4_3.Location = new Point(30, 80);
+            label4_3.Name = "label4_3";
+            label4_3.Size = new Size(250, 15);
+            label4_3.TabIndex = 22;
+            label4_3.Text = "Remove Light of Blessing from chests ?";
+
+            // 
+            // label4_3a : LightOrb removal Info
+            // 
+            label4_3a.AutoSize = true;
+            label4_3a.Location = new Point(360, 80);
+            label4_3a.Name = "label4_3a";
+            label4_3a.Size = new Size(250, 15);
+            label4_3a.TabIndex = 22;
+            label4_3a.Text = "(You need at least 4 hearts to use this option)";
+
+            // 
+            // checkbox4_3 : LightOrb removal BOOL
+            // 
+            checkbox4_3.Appearance = Appearance.Button;
+            checkbox4_3.AutoSize = true;
+            checkbox4_3.Checked = false;
+            checkbox4_3.Text = "False (default)";
+            checkbox4_3.CheckedChanged += (s, e) =>
+            {
+                checkbox4_3.Text = checkbox4_3.Checked.ToString();
+            };
+            checkbox4_3.Location = new Point(250, 77);
+
+            // 
+            // label4_4 : ShrineReward enabled ?
+            // 
+            label4_4.AutoSize = true;
+            label4_4.Location = new Point(30, 120);
+            label4_4.Name = "label4_4";
+            label4_4.Size = new Size(150, 15);
+            label4_4.TabIndex = 22;
+            label4_4.Text = "Enable random Shrine Rewards ?";
+
+            // 
+            // label4_4 : ShrineReward enabled ?
+            // 
+            label4_4a.AutoSize = true;
+            label4_4a.Location = new Point(360, 120);
+            label4_4a.Name = "label4_4a";
+            label4_4a.Size = new Size(150, 15);
+            label4_4a.TabIndex = 22;
+            label4_4a.Text = "(It will be the same reward for all shrine)";
+
+            // 
+            // checkbox4_4 : LightOrb removal BOOL
+            // 
+            checkbox4_4.Appearance = Appearance.Button;
+            checkbox4_4.AutoSize = true;
+            checkbox4_4.Checked = false;
+            checkbox4_4.Text = "False (default)";
+            checkbox4_4.CheckedChanged += (s, e) =>
+            {
+                checkbox4_4.Text = checkbox4_4.Checked.ToString();
+            };
+            checkbox4_4.Location = new Point(250, 116);
 
             // 
             // label7
@@ -731,7 +809,13 @@ namespace TotkRandomizer
 
         private Label label4_1;
         private Label label4_2;
+        private Label label4_3;
+        private Label label4_4;
+        private Label label4_3a;
+        private Label label4_4a;
 
+        private CheckBox checkbox4_3;
+        private CheckBox checkbox4_4;
         private NumericUpDown pouchWInt;
         private NumericUpDown pouchBInt;
         private NumericUpDown pouchSInt;

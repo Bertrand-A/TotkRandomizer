@@ -32,6 +32,9 @@ namespace TotkRandomizer
             batteryFloat.SelectedIndex = 0;
             paragliderPatternBox.SelectedIndex = 0;
 
+            heartsInt.ValueChanged += CheckheartsInt!;
+            checkbox4_3.Enabled = heartsInt.Value > 3;
+
             // add for Event.cs
             //heartsInt.Value = 3;
             staminaFloat.SelectedIndex = 0;
@@ -53,6 +56,12 @@ namespace TotkRandomizer
 
         public int GetHearts() { return (System.Int32)heartsInt.Value; }
         public float GetStamina() { return (System.Single)staminaFloat.SelectedItem!; }
+
+        private void CheckheartsInt(object sender, EventArgs e)
+        {
+            checkbox4_3.Enabled = heartsInt.Value > 3;
+            checkbox4_3.Checked = false;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -691,16 +700,20 @@ namespace TotkRandomizer
             }
 
             // Add Light Orbs in Chests across Hyrule
-            for (int i = 0; i < TOTAL_LIGHT_ORBS_COUNT - GREAT_SKY_ISLANDS_LIGHT_ORBS_COUNT; i++)
-            {
-                string newLightOrb = allChestContents.First(i => i.StartsWith("Item_"));
-                int index = allChestContents.IndexOf(newLightOrb);
-
-                if (index != -1)
+            if (checkbox4_3.Checked == false) {
+                Console.WriteLine("Addings Orb...");
+                for (int i = 0; i < TOTAL_LIGHT_ORBS_COUNT - GREAT_SKY_ISLANDS_LIGHT_ORBS_COUNT; i++)
                 {
-                    allChestContents[index] = "Obj_DungeonClearSeal";
+                    string newLightOrb = allChestContents.First(i => i.StartsWith("Item_"));
+                    int index = allChestContents.IndexOf(newLightOrb);
+
+                    if (index != -1)
+                    {
+                        allChestContents[index] = "Obj_DungeonClearSeal";
+                    }
                 }
             }
+            else { Console.WriteLine("Orb Excluded from rando"); }
 
             // Remove sky islands variable separations
             foreach (KeyValuePair<ulong, string> chest in allGreatSkyIslandsChestContents.Where(x => x.Value != "Obj_DungeonClearSeal"))

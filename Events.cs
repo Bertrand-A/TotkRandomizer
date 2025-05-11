@@ -1,4 +1,5 @@
-﻿using BfevLibrary;
+﻿using System.Diagnostics.Eventing.Reader;
+using BfevLibrary;
 using Newtonsoft.Json;
 using TotkRSTB;
 
@@ -64,7 +65,7 @@ namespace TotkRandomizer
             jsonEvent["Flowcharts"]["OpeningEvent"]["Events"][event124Id]["Parameters"]["MaxStamina"]["Float"] = (System.Single) staminaFloat;
         }
 
-        public static byte[] EditDungeonGoalEvent(string filePath)
+        public static byte[] EditDungeonGoalEvent(string filePath, bool checkbox4_4)
         {
             BfevFile bfev = BfevFile.FromBinary(HashTable.DecompressDataOther(File.ReadAllBytes(filePath)));
 
@@ -73,11 +74,23 @@ namespace TotkRandomizer
 
             if (jsonEvent != null)
             {
+                // If ShrineReward enabled,we put randomized reward (the same) for all shrine
+                if (checkbox4_4 == true) {
+                    ActorList.ShrineRewards.Shuffle();
+                    Console.WriteLine("Reward will be: "+ActorList.ShrineRewards[0]);
+                    int event50Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event50");
+                    //int event52Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event52");
+                    jsonEvent["Flowcharts"]["DmF_SY_SmallDungeonGoal"]["Events"][event50Id]["Parameters"]["ActorName"]["String"] = ActorList.ShrineRewards[0];
+                }
+
                 // Remove giving the Light Orb to Link
-                int event4Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event4");
-                int event52Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event52");
-                jsonEvent["Flowcharts"]["DmF_SY_SmallDungeonGoal"]["Events"][event4Id]["NextEventIndex"] = event52Id;
-                jsonEvent["Flowcharts"]["DmF_SY_SmallDungeonGoal"]["Events"][event4Id]["NextEventName"] = "Event52";
+                else
+                {
+                    int event4Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event4");
+                    int event52Id = GetEventId(jsonEvent, "DmF_SY_SmallDungeonGoal", "Event52");
+                    jsonEvent["Flowcharts"]["DmF_SY_SmallDungeonGoal"]["Events"][event4Id]["NextEventIndex"] = event52Id;
+                    jsonEvent["Flowcharts"]["DmF_SY_SmallDungeonGoal"]["Events"][event4Id]["NextEventName"] = "Event52";
+                }
             }
 
             jsonString = JsonConvert.SerializeObject(jsonEvent, Formatting.Indented);

@@ -56,6 +56,7 @@ namespace TotkRandomizer
 
         public int GetHearts() { return (System.Int32)heartsInt.Value; }
         public float GetStamina() { return (System.Single)staminaFloat.SelectedItem!; }
+        public bool GetShrineReward() { return (System.Boolean)checkbox4_4.Checked; }
 
         private void CheckheartsInt(object sender, EventArgs e)
         {
@@ -478,7 +479,7 @@ namespace TotkRandomizer
                 else if (eventName == "DmF_SY_SmallDungeonGoal" && GetControlValue(chestsBox) == 1)
                 {
                     File.Copy(eventFile, finalEventFlowPath, true);
-                    modifiedData = TotkRandomizer.Events.EditDungeonGoalEvent(finalEventFlowPath);
+                    modifiedData = TotkRandomizer.Events.EditDungeonGoalEvent(finalEventFlowPath, GetShrineReward());
                     editedEvent = true;
                 }
 
@@ -701,7 +702,6 @@ namespace TotkRandomizer
 
             // Add Light Orbs in Chests across Hyrule
             if (checkbox4_3.Checked == false) {
-                Console.WriteLine("Addings Orb...");
                 for (int i = 0; i < TOTAL_LIGHT_ORBS_COUNT - GREAT_SKY_ISLANDS_LIGHT_ORBS_COUNT; i++)
                 {
                     string newLightOrb = allChestContents.First(i => i.StartsWith("Item_"));
@@ -713,7 +713,7 @@ namespace TotkRandomizer
                     }
                 }
             }
-            else { Console.WriteLine("Orb Excluded from rando"); }
+            else { }
 
             // Remove sky islands variable separations
             foreach (KeyValuePair<ulong, string> chest in allGreatSkyIslandsChestContents.Where(x => x.Value != "Obj_DungeonClearSeal"))

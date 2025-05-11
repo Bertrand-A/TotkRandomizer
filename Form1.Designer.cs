@@ -371,7 +371,7 @@ namespace TotkRandomizer
             label4_4a.Text = "(It will be the same reward for all shrine)";
 
             // 
-            // checkbox4_4 : LightOrb removal BOOL
+            // checkbox4_4 : Shrine Reward CheckBox
             // 
             checkbox4_4.Appearance = Appearance.Button;
             checkbox4_4.AutoSize = true;

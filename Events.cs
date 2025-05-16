@@ -2,6 +2,11 @@
 using BfevLibrary;
 using Newtonsoft.Json;
 using TotkRSTB;
+using System.IO;
+using System.Linq;
+using System.Text;
+using SarcLibrary;
+using Revrs;
 
 namespace TotkRandomizer
 {
@@ -63,6 +68,45 @@ namespace TotkRandomizer
             if (staminaFloat <= 1000f) { staminaFloat = 1000f; } else if (staminaFloat >= 3000f) { staminaFloat = 3000f; }
             int event124Id = GetEventId(jsonEvent, "OpeningEvent", "Event124");
             jsonEvent["Flowcharts"]["OpeningEvent"]["Events"][event124Id]["Parameters"]["MaxStamina"]["Float"] = (System.Single) staminaFloat;
+        }
+        public static Dictionary<string, byte[]> Files { get; set; }
+        public static byte[] EditPlayerPackForSpeed(string filePath, System.Int32 percent) { //ONGOING
+            Console.WriteLine("EditPlayerPackForSpeed: "+percent+"%");
+
+            SarcLibrary.Sarc pack = SarcLibrary.Sarc.FromBinary(HashTable.DecompressFile(File.ReadAllBytes(filePath)));
+            string sPack = "Component/ConditionParam/Player.game__component__ConditionParam.bgyml";
+
+            /*byte[] f2 = HashTable.DecompressFile(filePath);
+            byte[] data = File.ReadAllBytes(f2);*/
+            //SarcLibrary.Sarc sarc = SarcLibrary.Sarc.FromBinary(filePath);
+
+            //var files = pack.GetFiles();
+            //var targetFile = pack.Files ;//Files.FirstOrDefault(f => f.Name.Replace('\\', '/').Equals(targetPath, StringComparison.Ordinal));
+
+            Console.WriteLine(pack.GetType());
+            foreach (var property in pack.GetType().GetProperties())
+            {
+                Console.WriteLine($"{property.Name} : {property.PropertyType}");
+            }
+
+            if (pack.TryGetValue(sPack, out var segment))
+            {
+                byte[] data = segment.ToArray();
+
+                if (Encoding.ASCII.GetString(data, 0, 4) == "Yaz0")
+                {
+                    data = HashTable.DecompressFile(data);
+                }
+                string output = Encoding.UTF8.GetString(data);
+                Console.WriteLine(output);
+            }
+            else
+            {
+                Console.WriteLine($"Fichier non trouvé : {sPack}");
+            }
+
+            byte[] modifiedDataSpeed = null;
+            return modifiedDataSpeed;
         }
 
         public static byte[] EditDungeonGoalEvent(string filePath, bool checkbox4_4)

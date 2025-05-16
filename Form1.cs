@@ -31,6 +31,7 @@ namespace TotkRandomizer
             natureBox.SelectedIndex = 1;
             batteryFloat.SelectedIndex = 0;
             paragliderPatternBox.SelectedIndex = 0;
+            speedCoeff.SelectedIndex = 0;
 
             heartsInt.ValueChanged += CheckheartsInt!;
             checkbox4_3.Enabled = heartsInt.Value > 3;
@@ -423,7 +424,10 @@ namespace TotkRandomizer
             };
 
             string romfsEnd;
+            string romfsEndPack;
             string finalPath;
+            string finalPathPack;
+            string finalPackFile;
 
             foreach (string mapFilePath in mapFiles)
             {
@@ -436,17 +440,54 @@ namespace TotkRandomizer
             SpoilerLog.Clear();
             rstbModifiedTable.Clear();
 
+            // modifying speed if Different from Default
+            if (speedCoeff.SelectedItem != "Default (1.0)") {    
+
+                string packactorFolderPath = Path.Combine(textBox1.Text, "Pack", "Actor");
+                romfsEndPack = packactorFolderPath.Replace(textBox1.Text, "").Remove(0, 1);
+                finalPathPack = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "romfs", romfsEndPack);
+                Directory.CreateDirectory(finalPathPack);
+                finalPackFile = "Player.pack.zs";
+                string fullSourcePack = packactorFolderPath+"\\"+finalPackFile;
+                string fullTargetPack = finalPathPack+"\\"+finalPackFile;
+
+                File.Copy(fullSourcePack, fullTargetPack);
+
+                Console.WriteLine("Source : "+fullSourcePack);
+                Console.WriteLine("Target : "+fullTargetPack);
+                byte[] modifiedDataSpeed = Array.Empty<byte>();
+
+                switch (speedCoeff.SelectedItem) {
+                    case "+10% (1.1)":
+                        Console.WriteLine("+10%");
+                        modifiedDataSpeed = TotkRandomizer.Events.EditPlayerPackForSpeed(fullTargetPack, 10);
+                        break;
+
+                    case "+20% (1.2)":
+                        Console.WriteLine("+20%");
+                        modifiedDataSpeed = TotkRandomizer.Events.EditPlayerPackForSpeed(fullTargetPack, 20);
+                        break;
+
+                    case "+30% (1.3)":
+                        Console.WriteLine("+30%");
+                        modifiedDataSpeed = TotkRandomizer.Events.EditPlayerPackForSpeed(fullTargetPack, 30);
+                        break;
+                }
+            }
+            else { }
+
             string resourceFolderPath = Path.Combine(textBox1.Text, "System", "Resource");
             romfsEnd = resourceFolderPath.Replace(textBox1.Text, "").Remove(0, 1);
             finalPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "romfs", romfsEnd);
             Directory.CreateDirectory(finalPath);
+       
             CopyFilesRecursively(resourceFolderPath, finalPath);
+
+            
 
             string rstbFile = Path.Combine(randomizerPath, "System", "Resource");
             string mapfilesPath = Path.Combine(randomizerPath, "Banc");
-            string playerPackfile = Path.Combine(randomizerPath, "Pack", "Actor");
 
-            //playerPackfile = Directory.GetFiles(playerPackfile, "Player.pack.zs")[0];
             rstbFile = Directory.GetFiles(rstbFile, "*.rsizetable.zs")[0];
 
             string[] allFiles = Directory.GetFiles(mapfilesPath, "*.bcett.byml.zs", SearchOption.AllDirectories);

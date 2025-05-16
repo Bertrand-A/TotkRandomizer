@@ -253,7 +253,7 @@ namespace TotkRandomizer
             weaponOnStart.DisplayMember = "Value";
             weaponOnStart.ValueMember = "Key";
             weaponOnStart.SelectedValue = "Random";
-            weaponOnStart.Location = new Point(175, 37);
+            weaponOnStart.Location = new Point(180, 37);
             weaponOnStart.Width = 180;
 
             // 
@@ -273,7 +273,7 @@ namespace TotkRandomizer
             label3_2.Name = "label3_2";
             label3_2.Size = new Size(150, 15);
             label3_2.TabIndex = 22;
-            label3_2.Text = "Number of fairies: ";
+            label3_2.Text = "Number of fairies [0-999]: ";
 
             //
             // fairiesInt => label3_2
@@ -281,7 +281,7 @@ namespace TotkRandomizer
             fairiesInt.Minimum = 0;
             fairiesInt.Maximum = 999;
             fairiesInt.Value = 0;
-            fairiesInt.Location = new Point(140, 77);
+            fairiesInt.Location = new Point(180, 77);
             fairiesInt.Width = 50;
 
             // 
